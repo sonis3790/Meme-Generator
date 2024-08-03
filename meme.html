@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playwrite+MX:wght@100..400&family=Playwrite+NG+Modern:wght@100..400&display=swap');
+
+        *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Playwrite NG Modern", cursive;
+    font-optical-sizing: auto;
+    font-weight: weight;
+    font-style: normal;
+}
+
+.main{
+    display: flex;
+    justify-content: center;
+    margin-top: 150px;
+}
+
+.card{
+    width: 90%;
+    max-width:450px;
+    text-align: center;
+    padding: 50px;
+    border: 2px solid grey;
+    border-radius: 1rem;
+}
+
+.card h1{
+    font-size: 2.5rem;
+}
+
+.card button{
+    width: 100%;
+    margin: 30px 0 40px;
+    cursor: pointer;
+    font-size: 1.3rem;
+}
+
+#memeImage{
+    width: 100%;
+    display: none;
+    border-radius: 1rem;
+}
+
+#loader{
+    font-size: 1.8rem;
+    display: none;
+}
+    </style>
+    <section class="main">
+        <div class="card">
+            <h1>Meme Generator</h1>
+            <p>A place to generate memes</p>
+            <button class="btn">Generate</button>
+            <h1 id="loader">loading...</h1>
+            <img id="memeImage" src="https://i.redd.it/g7vf11jeaw7d1.png" alt="meme image" srcset="">
+        </div>
+    </section>
+    <script>const btn = document.querySelector('.btn')
+        const api = 'https://meme-api.com/gimme'
+        const memeImage = document.getElementById('memeImage')
+        const loader = document.getElementById('loader')
+        btn.addEventListener('click',generateMeme)
+        
+        function generateMeme(){
+            memeImage.style.display = 'none'
+            loader.style.display = 'block'
+            fetch(api)
+            .then((response)=>response.json())
+            .then(({url})=>{
+                memeImage.src = url
+                btn.innerText = 'Generate another'
+                loader.style.display = 'none'
+                memeImage.style.display = 'block'
+            })
+        }</script>
+</body>
+</html>
